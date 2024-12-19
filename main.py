@@ -15,7 +15,7 @@ def calculate_power_1(index, rad1):
     :param rad1: Radius of curvative of the first surface (in mm)
     :return: Power of first surface (in 1/mm)
     """
-    return (index-1)/rad1
+    return (index - 1)/rad1
 
 def calculate_power_2(index, rad2):
     """
@@ -25,7 +25,7 @@ def calculate_power_2(index, rad2):
     :param rad1: Radius of curvative of the second surface (in mm)
     :return: Power of second surface (in 1/mm)
     """
-    return (1-index)/rad2
+    return (1 - index)/rad2
 
 def calculate_total_power(thickness, index, power1, power2):
     """
@@ -38,7 +38,7 @@ def calculate_total_power(thickness, index, power1, power2):
 
     :return total power of lens (in 1/mm)
     """
-    return power1 + power2 - ((thickness/index)*power1*power2)
+    return power1 + power2 - ((thickness / index) * power1 * power2)
 
 def calculate_efl(powertotal):
     """
@@ -85,44 +85,49 @@ def calculate_lens():
     except ValueError:
         messagebox.showerror("Input Error", "Please enter valid numerical values")
 
+def main():
+    # create main window
+    ctk.set_appearance_mode("dark")
+    ctk.set_default_color_theme("blue")
 
-# create main window
-ctk.set_appearance_mode("dark")
-ctk.set_default_color_theme("blue")
+    app = ctk.CTk()
+    app.title("Ray Trace Simulator")
+    app.geometry("400x600")
 
-app = ctk.CTk()
-app.title("Ray Trace Simulator")
-app.geometry("400x600")
+    # input fields & labels
+    global entry_index, entry_rad1, entry_rad2, entry_thickness, entry_diameter
+    fields = [
+        ("Refractive Index:", "entry_index"),
+        ("Radius of First Surface (mm):", "entry_rad1"),
+        ("Radius of Second Surface (mm):", "entry_rad2"),
+        ("Thickness (mm):", "entry_thickness"),
+        ("Diameter (mm):", "entry_diameter")
+    ]
 
-# input fields & labels
-fields = [
-    ("Refractive Index:", "entry_index"),
-    ("Radius of First Surface (mm):", "entry_rad1"),
-    ("Radius of Second Surface (mm):", "entry_rad2"),
-    ("Thickness (mm):", "entry_thickness"),
-    ("Diameter (mm):", "entry_diameter")
-]
+    # style configuration
+    for label_text, var_name in fields:
+        ctk.CTkLabel(app, text=label_text, font=("Helvetica", 14)).pack(pady=5)
+        globals()[var_name] = ctk.CTkEntry(app, font=("Helvetica", 14))
+        globals()[var_name].pack(pady=5, ipadx=5)
 
-# style configuration
-for label_text, var_name in fields:
-    ctk.CTkLabel(app, text=label_text, font=("Helvetica", 14)).pack(pady=5)
-    globals()[var_name] = ctk.CTkEntry(app, font=("Helvetica", 14))
-    globals()[var_name].pack(pady=5, ipadx=5)
+    # button to calculate results
+    calc_button = ctk.CTkButton(app, text="Calculate", command=calculate_lens)
+    calc_button.pack(pady=20)
 
-# button to calculate results
-calc_button = ctk.CTkButton(app, text="Calculate", command=calculate_lens)
-calc_button.pack(pady=20)
+    # labels to display results
+    global result_power, result_efl, result_na
+    result_power = ctk.CTkLabel(app, text="Total Power:", font=("Helvetica", 14))
+    result_power.pack(pady=5)
 
-# labels to display results
-result_power = ctk.CTkLabel(app, text="Total Power:", font=("Helvetica", 14))
-result_power.pack(pady=5)
+    result_efl = ctk.CTkLabel(app, text="Effective Focal Length:", font=("Helvetica", 14))
+    result_efl.pack(pady=5)
 
-result_efl = ctk.CTkLabel(app, text="Effective Focal Length:", font=("Helvetica", 14))
-result_efl.pack(pady=5)
+    result_na = ctk.CTkLabel(app, text="Numerical Aperture:", font=("Helvetica", 14))
+    result_na.pack(pady=5)
 
-result_na = ctk.CTkLabel(app, text="Numerical Aperture:", font=("Helvetica", 14))
-result_na.pack(pady=5)
+    # start the main loop
+    app.mainloop()
 
-# start the main loop
-app.mainloop()
-
+# main guard
+if __name__ == "__main__":
+    main()
