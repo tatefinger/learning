@@ -19,8 +19,8 @@ def calculate_hfov(diameter_size, focal_length):
     """
     calculates the half field of view at a given diameter size & focal length
 
-    @param diameter_size Size of diameter (in meters)
-    @param focal_length Effective focal length of the lens (in meters)
+    @param diameter_size Size of diameter (in millimeters)
+    @param focal_length Effective focal length of the lens (in millimeters)
 
     @return field of view in degrees
     """
@@ -33,9 +33,9 @@ def calculate_sensor_size(hfov, focal_length):
     @param hfov Half field of view in degrees
     @param focal_length Focal length of lens (in whatever units)
 
-    @return radius of sensor size
+    @return diameter of sensor size
     """
-    return focal_length * np.tan(hfov*np.pi/180)
+    return 2 * focal_length * np.tan(np.radians(hfov))
 
 def main():
     diameter_size = int(input('Diameter: '))
@@ -43,8 +43,8 @@ def main():
 
     hfov = calculate_hfov(diameter_size, focal_length)
     sensor_size = calculate_sensor_size(hfov, focal_length)
-    print(f"HOV: {hfov}")
-    print(f"Sensor size: {sensor_size}")
+    print(f"Half FOV: {hfov} degrees")
+    print(f"Sensor Full-Size (Diameter): {sensor_size} mm")
 
 
 
