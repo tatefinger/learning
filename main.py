@@ -12,7 +12,7 @@ def calculate_power_1(index, rad1):
 
     :param index: Refractive index of lens material
     :param rad1: Radius of curvative of the first surface (in mm)
-    :return: Power of first surface (in 1\mm)
+    :return: Power of first surface (in 1/mm)
     """
     return (index-1)/rad1
 
@@ -22,7 +22,7 @@ def calculate_power_2(index, rad2):
 
     :param index: Refractive index of lens material
     :param rad1: Radius of curvative of the second surface (in mm)
-    :return: Power of second surface (in 1\mm)
+    :return: Power of second surface (in 1/mm)
     """
     return (1-index)/rad2
 
