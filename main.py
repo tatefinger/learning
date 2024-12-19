@@ -21,9 +21,15 @@ def calculate_hfov(diameter_size, focal_length):
 def calculate_sensor_size(hfov, focal_length):
     return focal_length * np.tan(hfov*np.pi/180)
 
-diameter_size = int(input('Diameter: '))
-focal_length = int(input('Focal Length: '))
+def main():
+    diameter_size = int(input('Diameter: '))
+    focal_length = int(input('Focal Length: '))
 
-hfov = calculate_hfov(diameter_size, focal_length)
-print(calculate_hfov(diameter_size, focal_length))
-print(calculate_sensor_size(hfov, focal_length))
+    hfov = calculate_hfov(diameter_size, focal_length)
+    sensor_size = calculate_sensor_size(hfov, focal_length)
+    print(f"HOV: {hfov}")
+    print(f"Sensor size: {sensor_size}")
+
+
+if __name__ == "__main__":
+    main()
