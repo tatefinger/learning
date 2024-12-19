@@ -64,16 +64,6 @@ def calculate_numerical_aperture(diameter, efl):
 
 
 def calculate_lens():
-    """
-    calculates and prints total power, effective focal length (EFL) and numerical aperature (NA) of a lens
-    based on input parameters
-
-    :param index: Refractive index of the lens material 
-    :param rad1: Radius of curvature of the first surface (in mm)
-    :param rad2: Radius of curvature of the second surface (in mm)
-    :param thickness: Thickness of the lens (in mm) 
-    :param diameter: Diameter of the lens (in mm) 
-    """
     try:
         # get values from entry fields
         index = float(entry_index.get())
@@ -90,9 +80,9 @@ def calculate_lens():
         NA = calculate_numerical_aperture(diameter, efl)
 
         # Prints calculated values
-        print(f'Total Power of Lens: {powertotal: .3f} 1/mm')
-        print(f'Effective Focal Length: {efl: .2f} mm')
-        print(f'Numerical Aperture: {NA: .3f}')
+        result_power.config(text=f'Total Power of Lens: {powertotal: .3f} (1/mm)')
+        result_efl.config(text=f'Effective Focal Length: {efl: .2f} mm')
+        result_na.config(text=f'Numerical Aperture: {NA: .3f}')
     except ValueError:
         messagebox.showerror("Input Error", "Please enter valid numerical values")
 
@@ -100,7 +90,7 @@ def calculate_lens():
 # create main window
 root = tk.Tk()
 root.title("Ray Trace Simulator")
-root.geometry("400x400")
+root.geometry("400x500")
 
 # input fields & labels
 tk.Label(root, text="Refractive Index: ").pack(pady=5)
@@ -139,9 +129,3 @@ result_na.pack(pady=5)
 
 # start main loop
 root.mainloop()
-
-
-
-# main guard
-if __name__ == "__main__":
-    main()
