@@ -1,5 +1,5 @@
 """
-Lens Design Efficiency Calculator
+Single Lens Ray Trace Simulator
 Tate Finger, Quang Huynh
 """
 
