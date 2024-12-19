@@ -3,9 +3,12 @@ Single Lens Ray Trace Simulator
 Tate Finger, Quang Huynh
 """
 
+
 import numpy as np
 from tkinter import messagebox
 import customtkinter as ctk
+
+
 
 def calculate_power_1(index, rad1):
     """
@@ -15,7 +18,8 @@ def calculate_power_1(index, rad1):
     :param rad1: Radius of curvative of the first surface (in mm)
     :return: Power of first surface (in 1/mm)
     """
-    return (index - 1)/rad1
+    return (index - 1) / rad1
+
 
 def calculate_power_2(index, rad2):
     """
@@ -25,7 +29,8 @@ def calculate_power_2(index, rad2):
     :param rad1: Radius of curvative of the second surface (in mm)
     :return: Power of second surface (in 1/mm)
     """
-    return (1 - index)/rad2
+    return (1 - index) / rad2
+
 
 def calculate_total_power(thickness, index, power1, power2):
     """
@@ -40,6 +45,7 @@ def calculate_total_power(thickness, index, power1, power2):
     """
     return power1 + power2 - ((thickness / index) * power1 * power2)
 
+
 def calculate_efl(powertotal):
     """
     calculates effective focal length (efl) of lens
@@ -48,7 +54,8 @@ def calculate_efl(powertotal):
 
     :return Effective focal length (in mm)
     """
-    return 1/powertotal
+    return 1 / powertotal
+
 
 def calculate_numerical_aperture(diameter, efl):
     """
@@ -90,6 +97,7 @@ def calculate_lens():
         result_na.configure(text=f'Numerical Aperture: {NA: .3f}')
     except ValueError:
         messagebox.showerror("Input Error", "Please enter valid numerical values")
+
 
 def main():
     """
@@ -139,6 +147,7 @@ def main():
 
     # start the main loop
     app.mainloop()
+
 
 # main guard
 if __name__ == "__main__":
