@@ -5,6 +5,7 @@ Tate Finger, Quang Huynh
 
 import numpy as np
 
+
 def calculate_power_1(index, rad1):
     """
     calculates power from first surface of the lens
@@ -59,14 +60,18 @@ def calculate_numerical_aperture(diameter, efl):
     """
     return diameter/(2*efl)
 
-def main():
-    # Variables
-    index = float(input('Refractive Index: '))
-    rad1 = float(input('Radius of First Surface: '))
-    rad2 = float(input('Radius of Second Surface: '))
-    thickness = float(input('Thickness: '))
-    diameter = float(input('Diameter: ' ))
 
+def lens_calculator(index, rad1, rad2, thickness, diameter):
+    """
+    calculates and prints total power, effective focal length (EFL) and numerical aperature (NA) of a lens
+    based on input parameters
+
+    :param index: Refractive index of the lens material 
+    :param rad1: Radius of curvature of the first surface (in mm)
+    :param rad2: Radius of curvature of the second surface (in mm)
+    :param thickness: Thickness of the lens (in mm) 
+    :param diameter: Diameter of the lens (in mm) 
+    """
     # Calculates powers, effective focal length, and numerical aperture
     power1 = calculate_power_1(index, rad1)
     power2 = calculate_power_2(index, rad2)
@@ -78,6 +83,19 @@ def main():
     print(f'Total Power of Lens: {powertotal: .3f} 1/mm')
     print(f'Effective Focal Length: {efl: .2f} mm')
     print(f'Numerical Aperture: {NA: .3f}')
+
+def main():
+    """
+    Main function
+    """
+    # Variables
+    index = float(input('Refractive Index: '))
+    rad1 = float(input('Radius of First Surface: '))
+    rad2 = float(input('Radius of Second Surface: '))
+    thickness = float(input('Thickness: '))
+    diameter = float(input('Diameter: ' ))
+
+    lens_calculator(index, rad1, rad2, thickness, diameter)
 
 # main guard
 if __name__ == "__main__":
