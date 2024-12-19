@@ -71,10 +71,10 @@ def calculate_numerical_aperture(diameter, efl):
 
 def calculate_lens():
     """
-    Calculates and displays lens parameters based on user input.
+    Calculates and displays lens parameters based on user input
 
-    Computes the power of each surface, total power, effective focal length (EFL), 
-    and numerical aperture (NA). Displays results or shows an error for invalid input.
+    Computes the power of each surface, total power, effective focal length (EFL),
+    and numerical aperture (NA). Displays results or shows an error for invalid input
     """
     try:
         # get values from entry fields
@@ -101,10 +101,10 @@ def calculate_lens():
 
 def main():
     """
-    Sets up and runs the Ray Trace Simulator GUI.
+    sets up and runs the Ray Trace Simulator GUI
 
-    Initializes input fields, a calculate button, and result display labels. 
-    Starts the main application loop.
+    initializes input fields, calculate button and result display labels
+    starts the main app loop
     """
     # create main window
     ctk.set_appearance_mode("dark")
