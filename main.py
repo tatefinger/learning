@@ -11,43 +11,31 @@ import numpy as np
 # material
 # thickness
 #
-# d = diameter
-# f = focal_length
-# h=f*tan(f/2d)
+# FOCAL LENGTH
+# LENS POWER
+# NUMERICAL APERTURE
 
-def calculate_hfov(diameter_size, focal_length):
-    """
-    calculates the half field of view at a given diameter size & focal length
+def calculate_power_1(index, rad1):
+    return (index-1)/rad1
 
-    @param diameter_size Size of diameter (in millimeters)
-    @param focal_length Effective focal length of the lens (in millimeters)
+def calculate_power_2(index, rad2):
+    return (1-index)/rad2
 
-    @return field of view in degrees
-    """
-    return np.degrees(focal_length / (2 * diameter_size))
-
-def calculate_sensor_size(hfov, focal_length):
-    """
-    calculates sensor size based on half field of view (HFOV) & focal length
-
-    @param hfov Half field of view in degrees
-    @param focal_length Focal length of lens (in whatever units)
-
-    @return diameter of sensor size
-    """
-    return 2 * focal_length * np.tan(np.radians(hfov))
+def calculate_total_power(thickness, index, power1, power2):
+    return power1 + power2 - ((thickness/index)*power1*power2)
 
 def main():
-    diameter_size = int(input('Diameter: '))
-    focal_length = int(input('Focal Length: '))
+    index = float(input('Refractive Index: '))
+    rad1 = float(input('Radius of First Surface: '))
+    rad2= float(input('Radius of Second Surface: '))
+    thickness = float(input('Thickness: '))
 
-    hfov = calculate_hfov(diameter_size, focal_length)
-    sensor_size = calculate_sensor_size(hfov, focal_length)
-    print(f"Half FOV: {hfov: .2f} degrees")
-    print(f"Sensor Full-Size (Diameter): {sensor_size: .2f} mm")
-
-
-
+    power1 = calculate_power_1(index, rad1)
+    power2 = calculate_power_2(index, rad2)
+    powertotal = calculate_total_power(thickness, index, power1, power2)
+    efl = 1/powertotal
+    print(f'Total Power of Lens: {powertotal: .3f} 1/mm')
+    print(f'Effective Focal Length: {efl: .2f} mm')
 
 # main guard
 if __name__ == "__main__":
