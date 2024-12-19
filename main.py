@@ -5,8 +5,8 @@ Tate Finger, Quang Huynh
 
 import numpy as np
 import tkinter as tk
-from tkinter import messagebox
-
+from tkinter import ttk, messagebox
+from ttkthemes import ThemedTk
 
 def calculate_power_1(index, rad1):
     """
@@ -88,43 +88,42 @@ def calculate_lens():
 
 
 # create main window
-root = tk.Tk()
+root = ThemedTk(theme="plastik")
 root.title("Ray Trace Simulator")
 root.geometry("400x500")
 
+# style configuration
+style = ttk.Style()
+style.configure("TButton", font=("Helvetica", 12), padding=10)
+style.configure("TLabel", font=("Helvetica", 12))
+style.configure("TEntry", font=("Helvetica", 12))
+
 # input fields & labels
-tk.Label(root, text="Refractive Index: ").pack(pady=5)
-entry_index = tk.Entry(root)
-entry_index.pack(pady=5)
+fields = [
+    ("Refractive Index:", "entry_index"),
+    ("Radius of First Surface (mm):", "entry_rad1"),
+    ("Radius of Second Surface (mm):", "entry_rad2"),
+    ("Thickness (mm):", "entry_thickness"),
+    ("Diameter (mm):", "entry_diameter")
+]
 
-tk.Label(root, text="Radius of First Surface (mm): ").pack(pady=5)
-entry_rad1 = tk.Entry(root)
-entry_rad1.pack(pady=5)
-
-tk.Label(root, text="Radius of Second Surface (mm): ").pack(pady=5)
-entry_rad2 = tk.Entry(root)
-entry_rad2.pack(pady=5)
-
-tk.Label(root, text="Thickness (mm): ").pack(pady=5)
-entry_thickness = tk.Entry(root)
-entry_thickness.pack(pady=5)
-
-tk.Label(root, text="Diameter (mm): ").pack(pady=5)
-entry_diameter = tk.Entry(root)
-entry_diameter.pack(pady=5)
+for label_text, var_name in fields:
+    ttk.Label(root, text=label_text).pack(pady=5)
+    globals()[var_name] = ttk.Entry(root)
+    globals()[var_name].pack(pady=5, ipadx=5)
 
 # button to calculate results
-calc_button = tk.Button(root, text="Calculate", command=calculate_lens)
+calc_button = ttk.Button(root, text="Calculate", command=calculate_lens)
 calc_button.pack(pady=20)
 
 # labels to display results
-result_power = tk.Label(root, text="Total Power: ")
+result_power = ttk.Label(root, text="Total Power:")
 result_power.pack(pady=5)
 
-result_efl = tk.Label(root, text="Effective Focal Length: ")
+result_efl = ttk.Label(root, text="Effective Focal Length:")
 result_efl.pack(pady=5)
 
-result_na = tk.Label(root, text="Numerical Aperature: ")
+result_na = ttk.Label(root, text="Numerical Aperture:")
 result_na.pack(pady=5)
 
 # start main loop
