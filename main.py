@@ -4,9 +4,8 @@ Tate Finger, Quang Huynh
 """
 
 import numpy as np
-import tkinter as tk
-from tkinter import ttk, messagebox
-from ttkthemes import ThemedTk
+from tkinter import messagebox
+import customtkinter as ctk
 
 def calculate_power_1(index, rad1):
     """
@@ -80,23 +79,20 @@ def calculate_lens():
         NA = calculate_numerical_aperture(diameter, efl)
 
         # Prints calculated values
-        result_power.config(text=f'Total Power of Lens: {powertotal: .3f} (1/mm)')
-        result_efl.config(text=f'Effective Focal Length: {efl: .2f} mm')
-        result_na.config(text=f'Numerical Aperture: {NA: .3f}')
+        result_power.configure(text=f'Total Power of Lens: {powertotal: .3f} (1/mm)')
+        result_efl.configure(text=f'Effective Focal Length: {efl: .2f} mm')
+        result_na.configure(text=f'Numerical Aperture: {NA: .3f}')
     except ValueError:
         messagebox.showerror("Input Error", "Please enter valid numerical values")
 
 
 # create main window
-root = ThemedTk(theme="plastik")
-root.title("Ray Trace Simulator")
-root.geometry("400x500")
+ctk.set_appearance_mode("dark")
+ctk.set_default_color_theme("blue")
 
-# style configuration
-style = ttk.Style()
-style.configure("TButton", font=("Helvetica", 12), padding=10)
-style.configure("TLabel", font=("Helvetica", 12))
-style.configure("TEntry", font=("Helvetica", 12))
+app = ctk.CTk()
+app.title("Ray Trace Simulator")
+app.geometry("400x600")
 
 # input fields & labels
 fields = [
@@ -107,24 +103,26 @@ fields = [
     ("Diameter (mm):", "entry_diameter")
 ]
 
+# style configuration
 for label_text, var_name in fields:
-    ttk.Label(root, text=label_text).pack(pady=5)
-    globals()[var_name] = ttk.Entry(root)
+    ctk.CTkLabel(app, text=label_text, font=("Helvetica", 14)).pack(pady=5)
+    globals()[var_name] = ctk.CTkEntry(app, font=("Helvetica", 14))
     globals()[var_name].pack(pady=5, ipadx=5)
 
 # button to calculate results
-calc_button = ttk.Button(root, text="Calculate", command=calculate_lens)
+calc_button = ctk.CTkButton(app, text="Calculate", command=calculate_lens)
 calc_button.pack(pady=20)
 
 # labels to display results
-result_power = ttk.Label(root, text="Total Power:")
+result_power = ctk.CTkLabel(app, text="Total Power:", font=("Helvetica", 14))
 result_power.pack(pady=5)
 
-result_efl = ttk.Label(root, text="Effective Focal Length:")
+result_efl = ctk.CTkLabel(app, text="Effective Focal Length:", font=("Helvetica", 14))
 result_efl.pack(pady=5)
 
-result_na = ttk.Label(root, text="Numerical Aperture:")
+result_na = ctk.CTkLabel(app, text="Numerical Aperture:", font=("Helvetica", 14))
 result_na.pack(pady=5)
 
-# start main loop
-root.mainloop()
+# start the main loop
+app.mainloop()
+
