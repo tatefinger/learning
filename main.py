@@ -43,8 +43,8 @@ def main():
 
     hfov = calculate_hfov(diameter_size, focal_length)
     sensor_size = calculate_sensor_size(hfov, focal_length)
-    print(f"Half FOV: {hfov} degrees")
-    print(f"Sensor Full-Size (Diameter): {sensor_size} mm")
+    print(f"Half FOV: {hfov: .2f} degrees")
+    print(f"Sensor Full-Size (Diameter): {sensor_size: .2f} mm")
 
 
 
