@@ -16,9 +16,25 @@ import numpy as np
 # h=f*tan(f/2d)
 
 def calculate_hfov(diameter_size, focal_length):
+    """
+    calculates the half field of view at a given diameter size & focal length
+
+    @param diameter_size Size of diameter (in meters)
+    @param focal_length Effective focal length of the lens (in meters)
+
+    @return field of view in degrees
+    """
     return np.degrees(focal_length / (2 * diameter_size))
 
 def calculate_sensor_size(hfov, focal_length):
+    """
+    calculates sensor size based on half field of view (HFOV) & focal length
+
+    @param hfov Half field of view in degrees
+    @param focal_length Focal length of lens (in whatever units)
+
+    @return radius of sensor size
+    """
     return focal_length * np.tan(hfov*np.pi/180)
 
 def main():
@@ -31,5 +47,8 @@ def main():
     print(f"Sensor size: {sensor_size}")
 
 
+
+
+# main guard
 if __name__ == "__main__":
     main()
