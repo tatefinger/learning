@@ -93,8 +93,9 @@ def draw_lens_diagram(diameter, thickness, rad1, rad2):
 
     # clear existing plot and set 
     ax.clear()
-    ax.set_facecolor('black')
-    fig.set_facecolor('black')
+    custom_color = '#242424'
+    ax.set_facecolor(custom_color)
+    fig.set_facecolor(custom_color)
 
     
     # draw the lens using PyRayT's draw function
@@ -163,8 +164,11 @@ def main():
 
     # create Matplotlib Figure and Canvas
     fig, ax = plt.subplots(figsize=(4, 4))
-    ax.set_facecolor('black')
-    fig.set_facecolor('black')
+    custom_color = '#242424'
+    ax.set_facecolor(custom_color)
+    fig.set_facecolor(custom_color)
+    ax.grid(True, color='gray')
+    ax.tick_params(colors='white')
     canvas = FigureCanvasTkAgg(fig, master=frame_diagram)
     canvas_widget = canvas.get_tk_widget()
     canvas_widget.pack()
