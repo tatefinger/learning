@@ -7,7 +7,11 @@ Tate Finger, Quang Huynh
 import numpy as np
 from tkinter import messagebox
 import customtkinter as ctk
-
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg  # pip install matplotlib
+import matplotlib.pyplot as plt
+import pyrayt  # py -m pip install pyrayt
+import pyrayt.materials as matl
+from tinygfx.g3d.renderers import draw
 
 
 def calculate_power_1(index, rad1):
@@ -69,6 +73,37 @@ def calculate_numerical_aperture(diameter, efl):
     return diameter/(2*efl)
 
 
+def draw_lens_diagram(diameter, thickness, rad1, rad2):
+    """
+    Draws a thick lens diagram using PyRayT and Matplotlib
+
+    :param diameter: Lens diameter (in mm).
+    :param thickness: Lens thickness (in mm).
+    :param rad1: Radius of curvature of the first surface (in mm).
+    :param rad2: Radius of curvature of the second surface (in mm).
+    """
+    lens_material = matl.glass["ideal"]  # create the lens with PyRayT
+    lens = pyrayt.components.thick_lens(
+        r1=rad1,
+        r2=rad2,
+        thickness=thickness,
+        aperture=diameter,
+        material=lens_material
+    )
+
+    # clear existing plot
+    ax.clear()
+    
+    # draw the lens using PyRayT's draw function
+    draw(lens, axis=ax)
+    
+    # customize plot appearance
+    ax.set_xlabel("X (mm)")
+    ax.set_ylabel("Y (mm)")
+    ax.grid(True)
+    canvas.draw()
+
+
 def calculate_lens():
     """
     Calculates and displays lens parameters based on user input
@@ -95,6 +130,8 @@ def calculate_lens():
         result_power.configure(text=f'Total Power of Lens: {powertotal: .3f} (1/mm)')
         result_efl.configure(text=f'Effective Focal Length: {efl: .2f} mm')
         result_na.configure(text=f'Numerical Aperture: {NA: .3f}')
+
+        draw_lens_diagram(diameter, thickness, rad1, rad2)
     except ValueError:
         messagebox.showerror("Input Error", "Please enter valid numerical values")
 
@@ -112,7 +149,18 @@ def main():
 
     app = ctk.CTk()
     app.title("Ray Trace Simulator")
-    app.geometry("400x600")
+    app.geometry("400x1100")
+
+    # diagram 
+    global ax, canvas
+    frame_diagram = ctk.CTkFrame(app)
+    frame_diagram.pack(pady=10, fill='both', expand=True)
+
+    # create Matplotlib Figure and Canvas
+    fig, ax = plt.subplots(figsize=(5, 4))
+    canvas = FigureCanvasTkAgg(fig, master=frame_diagram)
+    canvas_widget = canvas.get_tk_widget()
+    canvas_widget.pack()
 
     # input fields & labels
     global entry_index, entry_rad1, entry_rad2, entry_thickness, entry_diameter
