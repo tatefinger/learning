@@ -91,16 +91,21 @@ def draw_lens_diagram(diameter, thickness, rad1, rad2):
         material=lens_material
     )
 
-    # clear existing plot
+    # clear existing plot and set 
     ax.clear()
+    ax.set_facecolor('black')
+    fig.set_facecolor('black')
+
     
     # draw the lens using PyRayT's draw function
     draw(lens, axis=ax)
     
     # customize plot appearance
-    ax.set_xlabel("X (mm)")
-    ax.set_ylabel("Y (mm)")
-    ax.grid(True)
+    ax.set_xlabel("X (mm)", color='white')
+    ax.set_ylabel("Y (mm)", color='white')
+    ax.grid(True, color='gray')
+    ax.tick_params(colors='white')
+
     canvas.draw()
 
 
@@ -140,7 +145,7 @@ def main():
     """
     sets up and runs the Ray Trace Simulator GUI
 
-    initializes input fields, calculate button and result display labels
+    initializes diagram, input fields, calculate button and result display labels
     starts the main app loop
     """
     # create main window
@@ -152,12 +157,14 @@ def main():
     app.geometry("400x1100")
 
     # diagram 
-    global ax, canvas
+    global ax, canvas, fig
     frame_diagram = ctk.CTkFrame(app)
     frame_diagram.pack(pady=10, fill='both', expand=True)
 
     # create Matplotlib Figure and Canvas
-    fig, ax = plt.subplots(figsize=(5, 4))
+    fig, ax = plt.subplots(figsize=(4, 4))
+    ax.set_facecolor('black')
+    fig.set_facecolor('black')
     canvas = FigureCanvasTkAgg(fig, master=frame_diagram)
     canvas_widget = canvas.get_tk_widget()
     canvas_widget.pack()
