@@ -154,12 +154,12 @@ def main():
 
     app = ctk.CTk()
     app.title("Ray Trace Simulator")
-    app.geometry("400x1100")
+    app.geometry("400x1000")
 
     # diagram 
     global ax, canvas, fig
     frame_diagram = ctk.CTkFrame(app)
-    frame_diagram.pack(pady=10, fill='both', expand=True)
+    frame_diagram.pack(pady=10, fill='x', expand=True)
 
     # create Matplotlib Figure and Canvas
     fig, ax = plt.subplots(figsize=(4, 4))
